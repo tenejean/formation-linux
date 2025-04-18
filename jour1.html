@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Jour 1 – Fondamentaux Linux</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Jour 1 – Fondamentaux Linux : l’arborescence du système</h1>
+    </header>
+    <nav>
+        <a href="index.html">Accueil</a>
+        <a href="jour1.html">Jour 1</a>
+    </nav>
+    <div class="container">
+      <h2>1. Origine et standard FHS</h2>
+      <p>Linux suit le <strong>Filesystem Hierarchy Standard (FHS)</strong>, une convention définissant où placer les fichiers. Cette cohérence facilite :</p>
+      <ul>
+        <li>La maintenance et le diagnostic (tu sais toujours où chercher).</li>
+        <li>Les scripts et automatisations (les chemins sont prédictibles).</li>
+        <li>L’installation des paquets (dpkg, rpm, etc. respectent ces emplacements).</li>
+      </ul>
+
+      <h2>2. Détail des principaux répertoires</h2>
+      <table>
+        <tr><th>Répertoire</th><th>Contenu</th><th>Cas d’usage typique</th></tr>
+        <tr><td>/</td><td>Racine du système</td><td>Point de départ de tous les chemins</td></tr>
+        <tr><td>/bin</td><td>Binaries essentiels (ls, cp…)</td><td>Commandes de base disponibles en single-user</td></tr>
+        <tr><td>/sbin</td><td>Binaries système (fsck, ifconfig…)</td><td>Utilitaires réservés à root</td></tr>
+        <tr><td>/usr/bin</td><td>Applications utilisateurs (vim, python…)</td><td>Logiciels non nécessaires au boot</td></tr>
+        <tr><td>/usr/sbin</td><td>Services avancés (httpd, vsftpd…)</td><td>Démons et services</td></tr>
+        <tr><td>/etc</td><td>Configuration système</td><td>Fichiers de config (ssh, fstab…)</td></tr>
+        <tr><td>/var</td><td>Données variables (logs, cache…)</td><td>Analyse des logs (tail -f /var/log/syslog)</td></tr>
+        <tr><td>/home</td><td>Dossiers personnels</td><td>Stockage des users</td></tr>
+        <tr><td>/root</td><td>Répertoire de root</td><td>Fichiers privés de l’admin</td></tr>
+        <tr><td>/tmp</td><td>Temporaire</td><td>Fichiers éphémères</td></tr>
+        <tr><td>/dev</td><td>Périphériques</td><td>Accès matériel</td></tr>
+        <tr><td>/proc</td><td>Infos processus/noyau</td><td>Diagnostics système</td></tr>
+        <tr><td>/sys</td><td>Infos matériel</td><td>Suivi hardware (udev)</td></tr>
+        <tr><td>/lib</td><td>Bibliothèques essentielles</td><td>Fonctions partagées</td></tr>
+        <tr><td>/usr/lib</td><td>Bibliothèques d’applications</td><td>Support apps</td></tr>
+        <tr><td>/opt</td><td>Logiciels tiers</td><td>Installation manuelle</td></tr>
+        <tr><td>/mnt</td><td>Montage manuel</td><td>mount /dev/sdb1 /mnt</td></tr>
+        <tr><td>/media</td><td>Montage auto</td><td>CD, USB</td></tr>
+        <tr><td>/srv</td><td>Données de services</td><td>www, ftp</td></tr>
+      </table>
+
+      <h2>3. Commandes & utilité</h2>
+      <ul>
+        <li><code>ls -lah /etc</code> – liste détaillée des configs</li>
+        <li><code>cd /var/log && tail -n 20 syslog</code> – suivre les logs</li>
+        <li><code>find /home -type f -iname "*.conf" -mtime -7</code> – configs modifiées récemment</li>
+        <li><code>df -h</code> – espace disque</li>
+        <li><code>du -sh /usr/*</code> – taille des dossiers sous /usr</li>
+      </ul>
+
+      <h2>4. Cas pratiques & diagnostic</h2>
+      <p><strong>Diagnostic d’un service qui ne démarre pas :</strong></p>
+      <ol>
+        <li>Vérifier la config <code>/etc/nginx/nginx.conf</code> (<code>nginx -t</code>).</li>
+        <li>Consulter <code>/var/log/nginx/error.log</code>.</li>
+        <li>Tester le binaire <code>/usr/sbin/nginx -c /etc/nginx/nginx.conf</code>.</li>
+      </ol>
+      <p><strong>Gestion d’un disque USB :</strong></p>
+      <ol>
+        <li><code>dmesg | tail</code> pour détecter <code>/dev/sdb1</code>.</li>
+        <li><code>sudo mkdir -p /mnt/usb</code> puis <code>sudo mount /dev/sdb1 /mnt/usb</code>.</li>
+        <li><code>ls -l /mnt/usb</code> puis <code>sudo umount /mnt/usb</code>.</li>
+      </ol>
+
+      <h2>5. Bonnes pratiques</h2>
+      <ul>
+        <li>Tester <code>mount -a --dry-run</code> avant d’éditer <code>/etc/fstab</code>.</li>
+        <li>Sauvegarder : <code>cp /etc/ssh/sshd_config ~/ssh.bak</code>.</li>
+        <li>Utiliser <code>logrotate</code> pour gérer les logs.</li>
+        <li>Monter partitions critiques en <em>ro</em> si besoin.</li>
+      </ul>
+
+      <h2>Résumé synthétique</h2>
+      <p><strong>FHS</strong> : standard d’organisation des dossiers.</p>
+      <p><strong>Arborescence clé</strong> : <code>/etc</code>, <code>/home</code>, <code>/var</code>, <code>/bin</code>/<code>/sbin</code>, <code>/usr</code>, <code>/root</code>, <code>/proc</code>/<code>/sys</code>.</p>
+      <p><strong>Commandes</strong> : <code>ls, cd, pwd, find, df, du, journalctl, tail, mount, umount</code>.</p>
+      <p><strong>Bonnes pratiques</strong> : sauvegarde des configs, tests <code>--dry-run</code>, rotation des logs, permissions <em>ro</em>.</p>
+
+      <p>Reviens ici à 18h pour l’évaluation !</p>
+    </div>
+    <footer>
+        &copy; 2025 Formation Admin Système Linux
+    </footer>
+</body>
+</html>
