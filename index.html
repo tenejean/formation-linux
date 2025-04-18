@@ -1,28 +1,83 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Formation Admin Système Linux</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Jour 2 – Gestion des utilisateurs et des groupes</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Formation Admin Système Linux</h1>
-    </header>
-    <nav>
-        <a href="index.html">Accueil</a>
-        <a href="jour1.html">Jour 1</a>
-    </nav>
-    <div class="container">
-        <h2>Bienvenue !</h2>
-        <p>Cette plateforme te propose une formation intensive pour devenir Administrateur Système Linux sur 3 mois.</p>
-        <ul>
-            <li><a href="jour1.html">Jour 1 – Fondamentaux Linux : Arborescence</a></li>
-        </ul>
-        <p>Chaque matin à 9h, un nouveau module sera publié ici.</p>
-    </div>
-    <footer>
-        &copy; 2025 Formation Admin Système Linux
-    </footer>
+  <header>
+    <h1>Jour 2 – Gestion des utilisateurs et des groupes</h1>
+  </header>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="jour1.html">Jour 1</a>
+    <a href="jour2.html">Jour 2</a>
+  </nav>
+  <div class="container">
+    <h2>1. Concepts & Fichiers clés</h2>
+    <p>Linux est un système <strong>multi‑utilisateur</strong>. Chaque utilisateur a :</p>
+    <ul>
+      <li>Un <em>UID</em>, un nom et un répertoire personnel.</li>
+      <li>Un <em>shell</em> de connexion.</li>
+    </ul>
+    <p>Les groupes permettent de <strong>regrouper des utilisateurs</strong> pour gérer les droits collectifs.</p>
+    <table>
+      <tr><th>Fichier</th><th>Rôle</th></tr>
+      <tr><td>/etc/passwd</td><td>Liste des comptes utilisateurs</td></tr>
+      <tr><td>/etc/shadow</td><td>Mots de passe chiffrés (root only)</td></tr>
+      <tr><td>/etc/group</td><td>Liste des groupes et de leurs membres</td></tr>
+      <tr><td>/etc/sudoers</td><td>Configuration sudo (visudo)</td></tr>
+    </table>
+
+    <h2>2. Commandes principales</h2>
+    <table>
+      <tr><th>Commande</th><th>Description</th></tr>
+      <tr><td><code>sudo adduser alice</code></td><td>Créer l’utilisateur <code>alice</code> (+home & shell bash)</td></tr>
+      <tr><td><code>sudo passwd alice</code></td><td>Définir ou modifier son mot de passe</td></tr>
+      <tr><td><code>sudo usermod -aG sudo alice</code></td><td>Ajouter <code>alice</code> au groupe <code>sudo</code></td></tr>
+      <tr><td><code>sudo deluser --remove-home alice</code></td><td>Supprimer <code>alice</code> et son home</td></tr>
+      <tr><td><code>sudo groupadd devops</code></td><td>Créer le groupe <code>devops</code></td></tr>
+      <tr><td><code>sudo gpasswd -a alice devops</code></td><td>Ajouter <code>alice</code> au groupe <code>devops</code></td></tr>
+      <tr><td><code>getent group devops</code></td><td>Lister les membres du groupe</td></tr>
+    </table>
+
+    <h2>3. Exercices pratiques</h2>
+    <ol>
+      <li><code>sudo adduser testuser</code> puis <code>sudo passwd testuser</code>.</li>
+      <li><code>sudo groupadd stagiaires</code> et <code>sudo gpasswd -a testuser stagiaires</code>.</li>
+      <li><code>sudo mkdir -p /opt/formation</code> puis <code>sudo chown :stagiaires /opt/formation</code> et <code>sudo chmod 770 /opt/formation</code>.</li>
+      <li>Vérifie dans <code>/etc/group</code> et avec <code>getent group stagiaires</code>.</li>
+      <li><code>sudo deluser --remove-home testuser</code>.</li>
+    </ol>
+
+    <h2>4. Mini défi</h2>
+    <p>Cas réel :</p>
+    <ol>
+      <li><code>sudo groupadd backup</code></li>
+      <li><code>sudo useradd -M -d /backup/bob -s /bin/bash bob</code></li>
+      <li>
+        <code>sudo mkdir -p /backup/bob && sudo chown bob:backup /backup/bob && sudo chmod 750 /backup</code>
+      </li>
+      <li>Teste avec :  
+        <code>su - bob -c "ls /home"</code>  
+        <code>su - bob -c "touch /backup/bob/testfile"</code>
+      </li>
+    </ol>
+
+    <h2>Résumé synthétique</h2>
+    <ul>
+      <li><strong>adduser / deluser</strong> : créer/supprimer un compte.</li>
+      <li><strong>passwd</strong> : gérer les mots de passe.</li>
+      <li><strong>usermod -aG</strong> : ajouter à un groupe.</li>
+      <li><strong>groupadd / gpasswd</strong> : créer groupes et y ajouter.</li>
+      <li><strong>getent group</strong> : lister les membres.</li>
+    </ul>
+
+    <p>Reviens ici à 18h pour ton évaluation !</p>
+  </div>
+  <footer>
+    &copy; 2025 Formation Admin Système Linux
+  </footer>
 </body>
 </html>
