@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Jour 3 – Permissions et gestion des droits</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Jour 3 – Permissions et gestion des droits</h1>
+  </header>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="jour1.html">Jour 1</a>
+    <a href="jour2.html">Jour 2</a>
+    <a href="jour3.html">Jour 3</a>
+  </nav>
+  <div class="container">
+    <h2>1. Les types de permissions</h2>
+    <ul>
+      <li><strong>Lecture (r)</strong> : Voir le contenu d’un fichier ou lister un répertoire.</li>
+      <li><strong>Écriture (w)</strong> : Modifier un fichier ou le contenu d’un répertoire.</li>
+      <li><strong>Exécution (x)</strong> : Lancer un fichier (script ou binaire) ou entrer dans un répertoire.</li>
+    </ul>
+
+    <h2>2. Commandes essentielles</h2>
+    <table>
+      <tr><th>Commande</th><th>Effet</th></tr>
+      <tr><td><code>ls -l</code></td><td>Voir les permissions des fichiers</td></tr>
+      <tr><td><code>chmod</code></td><td>Modifier les permissions (symbolique ou numérique)</td></tr>
+      <tr><td><code>chown</code></td><td>Changer le propriétaire (utilisateur)</td></tr>
+      <tr><td><code>chgrp</code></td><td>Changer le groupe</td></tr>
+    </table>
+
+    <h2>3. Modes numériques (chmod)</h2>
+    <ul>
+      <li><code>r = 4</code>, <code>w = 2</code>, <code>x = 1</code></li>
+      <li>Exemple : <code>chmod 750 fichier</code> = rwx (7) pour propriétaire, r-x (5) pour groupe, rien (0) pour autres</li>
+    </ul>
+
+    <h2>4. Exercices pratiques</h2>
+    <ol>
+      <li>Créer un fichier <code>test.txt</code>, le rendre lisible/exécutable uniquement par le propriétaire.</li>
+      <li>Créer un répertoire <code>securise</code> avec accès total au propriétaire, aucun aux autres.</li>
+      <li>Donner à un groupe <code>partage</code> un accès lecture/écriture sur un dossier <code>docs</code>.</li>
+      <li>Changer le propriétaire de <code>fichier.conf</code> à <code>admin:admin</code>.</li>
+    </ol>
+
+    <h2>5. Mini défi</h2>
+    <p>Prépare une arborescence sécurisée pour un projet collaboratif :</p>
+    <ol>
+      <li><code>mkdir -p /srv/projet/docs</code></li>
+      <li><code>groupadd projet</code></li>
+      <li><code>chown -R :projet /srv/projet</code></li>
+      <li><code>chmod -R 770 /srv/projet</code></li>
+      <li>Ajoute les membres avec <code>usermod -aG projet alice</code>, etc.</li>
+    </ol>
+
+    <h2>Résumé synthétique</h2>
+    <ul>
+      <li><strong>r / w / x</strong> = lecture, écriture, exécution</li>
+      <li><strong>chmod</strong> pour modifier les permissions</li>
+      <li><strong>chown / chgrp</strong> pour les propriétaires</li>
+      <li><strong>groupes</strong> = gestion collective des droits</li>
+    </ul>
+
+    <p>📆 Reviens ici à 18h pour ton évaluation du Jour 3 !</p>
+  </div>
+  <footer>
+    &copy; 2025 Formation Admin Système Linux
+  </footer>
+</body>
+</html>
