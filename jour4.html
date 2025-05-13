@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Jour 4 – Arborescence & gestion des fichiers</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Jour 4 – Arborescence & gestion des fichiers</h1>
+  </header>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="jour1.html">Jour 1</a>
+    <a href="jour2.html">Jour 2</a>
+    <a href="jour3.html">Jour 3</a>
+    <a href="jour4.html">Jour 4</a>
+  </nav>
+  <div class="container">
+    <h2>1. Structure du système de fichiers</h2>
+    <ul>
+      <li><code>/</code> : racine du système</li>
+      <li><code>/home</code> : répertoires des utilisateurs</li>
+      <li><code>/etc</code> : fichiers de configuration</li>
+      <li><code>/var</code> : logs, mails, impressions</li>
+      <li><code>/tmp</code> : fichiers temporaires</li>
+      <li><code>/opt</code> : logiciels additionnels</li>
+      <li><code>/usr</code> : utilitaires et logiciels installés</li>
+    </ul>
+
+    <h2>2. Commandes de navigation & manipulation</h2>
+    <table>
+      <tr><th>Commande</th><th>Description</th></tr>
+      <tr><td><code>cd</code></td><td>Changer de répertoire</td></tr>
+      <tr><td><code>ls -l</code></td><td>Lister le contenu avec détails</td></tr>
+      <tr><td><code>cp source dest</code></td><td>Copier un fichier ou dossier</td></tr>
+      <tr><td><code>mv source dest</code></td><td>Déplacer ou renommer</td></tr>
+      <tr><td><code>rm -r dossier</code></td><td>Supprimer récursivement</td></tr>
+      <tr><td><code>mkdir -p dossier</code></td><td>Créer dossier(s)</td></tr>
+    </table>
+
+    <h2>3. Exercices pratiques</h2>
+    <ol>
+      <li>Créer un dossier <code>formation</code> dans ton <code>/home</code></li>
+      <li>Créer deux sous-dossiers <code>scripts</code> et <code>notes</code></li>
+      <li>Copier <code>/etc/passwd</code> dans <code>notes</code></li>
+      <li>Déplacer le fichier <code>passwd</code> vers <code>formation</code></li>
+      <li>Supprimer le dossier <code>notes</code></li>
+    </ol>
+
+    <h2>4. Mini défi</h2>
+    <p>Crée une arborescence comme suit, avec une seule commande :</p>
+    <pre><code>
+/home/utilisateur/projets/linux/{scripts,configs,tests}
+    </code></pre>
+    <p>Puis copie un fichier de ton choix dans chaque dossier et vérifie avec <code>tree</code>.</p>
+
+    <h2>Résumé synthétique</h2>
+    <ul>
+      <li><strong>cd, ls, pwd</strong> : navigation</li>
+      <li><strong>cp, mv, rm</strong> : manipulation fichiers</li>
+      <li><strong>mkdir, rmdir</strong> : création/suppression répertoires</li>
+      <li><strong>tree</strong> : afficher l’arborescence</li>
+    </ul>
+
+    <p>Rendez-vous à 18h pour ton évaluation !</p>
+  </div>
+  <footer>
+    &copy; 2025 Formation Admin Système Linux
+  </footer>
+</body>
+</html>
